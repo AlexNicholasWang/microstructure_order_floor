@@ -1,52 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 800" role="img" aria-label="Horizontal price axis with buy orders extending upward and sell orders extending downward">
-<rect width="1560" height="800" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1580 830" role="img" aria-label="Limit order book with horizontal price axis, sell ask bars above and buy bid bars below">
+<rect width="1580" height="830" fill="#fff"/>
 <g font-family="Arial,Helvetica,sans-serif">
-<text x="780" y="53" font-size="37" font-weight="bold" text-anchor="middle">Limit Order Book (LOB)</text>
-<text x="780" y="89" font-size="21" fill="#52525b" text-anchor="middle">Schematic · price levels along the horizontal axis, signed resting depth vertically</text>
-<line x1="125" y1="420" x2="1500" y2="420" stroke="#1f2937" stroke-width="3"/>
-<line x1="125" y1="175" x2="125" y2="665" stroke="#1f2937" stroke-width="3"/>
-<path d="M125 164 l-9 17 h18 Z" fill="#1f2937"/>
-<path d="M1510 420 l-18 -9 v18 Z" fill="#1f2937"/>
-<text x="29" y="150" font-size="23" font-weight="bold">Order size</text>
-<text x="29" y="178" font-size="19">(shares)</text>
-<text x="1515" y="428" font-size="25">Price</text>
-<text x="144" y="238" font-size="18" fill="#4b5563">+30k</text>
-<text x="144" y="302" font-size="18" fill="#4b5563">+20k</text>
-<text x="144" y="362" font-size="18" fill="#4b5563">+10k</text>
-<text x="151" y="446" font-size="18" fill="#4b5563">0</text>
-<text x="144" y="493" font-size="18" fill="#4b5563">−10k</text>
-<text x="144" y="554" font-size="18" fill="#4b5563">−20k</text>
-<text x="144" y="617" font-size="18" fill="#4b5563">−30k</text>
-<rect x="266" y="123" width="385" height="57" rx="13" fill="#e2f3dd" stroke="#36733b" stroke-width="2"/>
-<text x="459" y="160" text-anchor="middle" font-size="30" font-weight="bold" fill="#265a30">BUY ORDERS (BID)</text>
-<rect x="968" y="561" width="440" height="57" rx="13" fill="#ffe6e7" stroke="#a8383e" stroke-width="2"/>
-<text x="1188" y="598" text-anchor="middle" font-size="30" font-weight="bold" fill="#8f232c">SELL ORDERS (ASK)</text>
-<rect x="175" y="210" width="114" height="210" fill="#9bd88b" stroke="#36733b" stroke-width="2"/>
-<rect x="305" y="252" width="114" height="168" fill="#9bd88b" stroke="#36733b" stroke-width="2"/>
-<rect x="435" y="300" width="114" height="120" fill="#9bd88b" stroke="#36733b" stroke-width="2"/>
-<rect x="565" y="342" width="114" height="78" fill="#9bd88b" stroke="#36733b" stroke-width="2"/>
-<rect x="695" y="372" width="114" height="48" fill="#9bd88b" stroke="#36733b" stroke-width="2"/>
-<rect x="825" y="420" width="114" height="48" fill="#f4a0a2" stroke="#a8383e" stroke-width="2"/>
-<rect x="955" y="420" width="114" height="84" fill="#f4a0a2" stroke="#a8383e" stroke-width="2"/>
-<rect x="1085" y="420" width="114" height="120" fill="#f4a0a2" stroke="#a8383e" stroke-width="2"/>
-<rect x="1215" y="420" width="114" height="168" fill="#f4a0a2" stroke="#a8383e" stroke-width="2"/>
-<rect x="1345" y="420" width="114" height="210" fill="#f4a0a2" stroke="#a8383e" stroke-width="2"/>
-
-<line x1="817" y1="205" x2="817" y2="680" stroke="#64748b" stroke-width="2" stroke-dasharray="9 8"/>
-<rect x="697" y="145" width="240" height="49" rx="8" fill="#f1f5f9" stroke="#64748b"/>
-<text x="817" y="176" text-anchor="middle" font-size="24">Midprice: $118.90</text>
-<text x="750" y="738" font-size="23" fill="#2d6e3a" text-anchor="middle">Best bid $118.80</text>
-<text x="889" y="772" font-size="23" fill="#a8383e" text-anchor="middle">Best ask $119.00</text>
-<text x="780" y="785" font-size="0"> </text>
-<text x="232" y="704" text-anchor="middle" font-size="23" fill="#222">118.40</text>
-<text x="362" y="704" text-anchor="middle" font-size="23" fill="#222">118.50</text>
-<text x="492" y="704" text-anchor="middle" font-size="23" fill="#222">118.60</text>
-<text x="622" y="704" text-anchor="middle" font-size="23" fill="#222">118.70</text>
-<text x="752" y="704" text-anchor="middle" font-size="23" fill="#222">118.80</text>
-<text x="882" y="704" text-anchor="middle" font-size="23" fill="#222">119.00</text>
-<text x="1012" y="704" text-anchor="middle" font-size="23" fill="#222">119.10</text>
-<text x="1142" y="704" text-anchor="middle" font-size="23" fill="#222">119.20</text>
-<text x="1272" y="704" text-anchor="middle" font-size="23" fill="#222">119.30</text>
-<text x="1402" y="704" text-anchor="middle" font-size="23" fill="#222">119.40</text>
-<text x="780" y="77" font-size="0"> </text>
+<text x="790" y="52" font-size="37" font-weight="700" text-anchor="middle" fill="#17212e">Limit Order Book (LOB)</text>
+<text x="790" y="84" font-size="20" text-anchor="middle" fill="#64748b">Illustrative resting liquidity at each price · ask side above, bid side below</text>
+<line x1="146" y1="430" x2="1486" y2="430" stroke="#111827" stroke-width="3"/>
+<path d="M1505 430 l-19 -10 v20 Z" fill="#111827"/>
+<line x1="145" y1="172" x2="145" y2="671" stroke="#111827" stroke-width="3"/>
+<path d="M145 158 l-9 16 h18 Z" fill="#111827"/>
+<text x="24" y="135" font-size="24" font-weight="700" fill="#111827">Order size</text>
+<text x="24" y="162" font-size="18" fill="#475569">(shares)</text>
+<text x="1508" y="438" font-size="24" fill="#111827">Price</text>
+<text x="159" y="437" font-size="18" fill="#475569">0</text>
+<text x="157" y="376" font-size="17" fill="#475569">+10k</text><text x="157" y="496" font-size="17" fill="#475569">−10k</text><text x="157" y="316" font-size="17" fill="#475569">+20k</text><text x="157" y="556" font-size="17" fill="#475569">−20k</text><text x="157" y="256" font-size="17" fill="#475569">+30k</text><text x="157" y="616" font-size="17" fill="#475569">−30k</text>
+<rect x="829" y="382" width="112" height="48" rx="2" fill="#f7a1a5" stroke="#b63a45" stroke-width="2"/><rect x="960" y="346" width="112" height="84" rx="2" fill="#f7a1a5" stroke="#b63a45" stroke-width="2"/><rect x="1091" y="310" width="112" height="120" rx="2" fill="#f7a1a5" stroke="#b63a45" stroke-width="2"/><rect x="1222" y="262" width="112" height="168" rx="2" fill="#f7a1a5" stroke="#b63a45" stroke-width="2"/><rect x="1353" y="220" width="112" height="210" rx="2" fill="#f7a1a5" stroke="#b63a45" stroke-width="2"/>
+<rect x="174" y="430" width="112" height="210" rx="2" fill="#95d49b" stroke="#367a43" stroke-width="2"/><rect x="305" y="430" width="112" height="168" rx="2" fill="#95d49b" stroke="#367a43" stroke-width="2"/><rect x="436" y="430" width="112" height="120" rx="2" fill="#95d49b" stroke="#367a43" stroke-width="2"/><rect x="567" y="430" width="112" height="78" rx="2" fill="#95d49b" stroke="#367a43" stroke-width="2"/><rect x="698" y="430" width="112" height="48" rx="2" fill="#95d49b" stroke="#367a43" stroke-width="2"/>
+<rect x="977" y="129" width="411" height="57" rx="12" fill="#ffe4e6" stroke="#b63a45" stroke-width="2"/>
+<text x="1182" y="165" font-size="28" font-weight="700" text-anchor="middle" fill="#9f2834">SELL ORDERS (ASK)</text>
+<rect x="235" y="637" width="387" height="57" rx="12" fill="#dcfce7" stroke="#367a43" stroke-width="2"/>
+<text x="429" y="673" font-size="28" font-weight="700" text-anchor="middle" fill="#256a36">BUY ORDERS (BID)</text>
+<line x1="822" y1="208" x2="822" y2="701" stroke="#64748b" stroke-width="2" stroke-dasharray="8 8"/>
+<rect x="697" y="139" width="250" height="50" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+<text x="822" y="171" font-size="22" text-anchor="middle" fill="#263445">Midprice: $118.90</text>
+<text x="230" y="728" text-anchor="middle" font-size="21" fill="#1f2937">118.40</text><text x="361" y="728" text-anchor="middle" font-size="21" fill="#1f2937">118.50</text><text x="492" y="728" text-anchor="middle" font-size="21" fill="#1f2937">118.60</text><text x="623" y="728" text-anchor="middle" font-size="21" fill="#1f2937">118.70</text><text x="754" y="728" text-anchor="middle" font-size="21" fill="#1f2937">118.80</text><text x="885" y="728" text-anchor="middle" font-size="21" fill="#1f2937">119.00</text><text x="1016" y="728" text-anchor="middle" font-size="21" fill="#1f2937">119.10</text><text x="1147" y="728" text-anchor="middle" font-size="21" fill="#1f2937">119.20</text><text x="1278" y="728" text-anchor="middle" font-size="21" fill="#1f2937">119.30</text><text x="1409" y="728" text-anchor="middle" font-size="21" fill="#1f2937">119.40</text>
+<text x="753" y="766" font-size="21" fill="#28723b" text-anchor="middle">Best bid: $118.80</text>
+<text x="914" y="798" font-size="21" fill="#a63642" text-anchor="middle">Best ask: $119.00</text>
 </g></svg>
