@@ -26,13 +26,9 @@ This produces both plausible versions of the "matrix" discussed in the meeting: 
 
 ![Limit order book diagram](docs/figures/limit_order_book_diagram.svg)
 
-Illustrative bid/ask book with price levels, resting sizes, best quotes, spread and midprice. The data pipeline reconstructs the top 10 levels from LOBSTER event files.
+Slide-inspired layout with a horizontal price axis: buy-side depth rises above zero and sell-side depth falls below zero. The pipeline reconstructs top 10 levels from LOBSTER event files.
 
-### Cross-impact coefficient matrix
-
-![Cross-impact coefficient matrix](docs/figures/cross_impact_matrix_diagram.svg)
-
-**Illustration only:** numerical coefficients in this diagram are schematic, not measurements from the uploaded data. After running the pipeline on LOBSTER archives, the fitted matrix is exported to `outputs/cross_impact_coefficient_matrix.csv`.
+The fitted cross-impact coefficient matrix, when generated, is exported to `outputs/cross_impact_coefficient_matrix.csv`.
 
 ## Setup
 
