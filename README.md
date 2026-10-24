@@ -20,6 +20,20 @@ This first version follows the lecture-slide setup before moving to the broader 
 
 This produces both plausible versions of the "matrix" discussed in the meeting: covariance/correlation matrices of order flow and the cross-impact coefficient matrix.
 
+## Visualizations
+
+### Limit order book
+
+![Limit order book diagram](docs/figures/limit_order_book_diagram.svg)
+
+Illustrative bid/ask book with price levels, resting sizes, best quotes, spread and midprice. The data pipeline reconstructs the top 10 levels from LOBSTER event files.
+
+### Cross-impact coefficient matrix
+
+![Cross-impact coefficient matrix](docs/figures/cross_impact_matrix_diagram.svg)
+
+**Illustration only:** numerical coefficients in this diagram are schematic, not measurements from the uploaded data. After running the pipeline on LOBSTER archives, the fitted matrix is exported to `outputs/cross_impact_coefficient_matrix.csv`.
+
 ## Setup
 
 Create a virtual environment, then install:
