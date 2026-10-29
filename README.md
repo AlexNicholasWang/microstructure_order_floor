@@ -30,6 +30,12 @@ Slide-inspired layout with a horizontal price axis: buy-side depth rises above z
 
 The fitted cross-impact coefficient matrix, when generated, is exported to `outputs/cross_impact_coefficient_matrix.csv`.
 
+## Level 1 order-flow imbalance matrix (n × 80 target)
+
+[Matrix construction, equation, inputs, limitations, and example](docs/level1_ofi_matrix.md).
+
+Run `python scripts/build_level1_ofi_matrix.py <LOBSTER .7z archives>` to create a timestamp-by-asset Level 1 OFI CSV and a per-ticker coverage report. This is distinct from the cross-impact coefficient matrix. A true observed `n × 80` matrix needs matching-date LOBSTER data for 80 assets; the supplied 2019 sample currently covers six.
+
 ## Setup
 
 Create a virtual environment, then install:
