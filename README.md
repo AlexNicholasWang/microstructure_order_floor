@@ -30,6 +30,12 @@ Slide-inspired layout with a horizontal price axis: buy-side depth rises above z
 
 The fitted cross-impact coefficient matrix, when generated, is exported to `outputs/cross_impact_coefficient_matrix.csv`.
 
+### Observed Level 1 OFI matrix (numerical representation)
+
+![Numerical Level 1 OFI matrix, first and last sampled rows](docs/figures/level1_ofi_matrix_formatted.svg)
+
+This figure displays **actual computed OFI entries** from January 2, 2019 using AAPL, AIG, GE, PSA, SPY, and WMT. Each row is a 10-second interval, each column is one asset, and the entries are signed Level 1 OFI in shares. The complete observed matrix contains **2,340 rows × 6 assets**; only the first and last rows are shown above. A true `n × 80` matrix will require matching-date LOBSTER files for 80 assets. See [how to build and validate the matrix](docs/level1_ofi_matrix.md).
+
 ## Level 1 order-flow imbalance matrix (n × 80 target)
 
 [Matrix construction, equation, inputs, limitations, and example](docs/level1_ofi_matrix.md).
