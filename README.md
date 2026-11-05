@@ -26,6 +26,22 @@ OPENBLAS_NUM_THREADS=1 python scripts/lobster2/ofi_team_pipeline.py factors \
   --output team_results/factors_volume
 ```
 
+### Follow-up checks without reprocessing 240 archives
+
+The following commands use existing private outputs on lobster2 (not raw archives). Generated results remain under team_results/, which is Git-ignored.
+
+~~~bash
+git pull
+python -m unittest discover -s tests -v
+python scripts/lobster2/audit_research.py --input team_results --output team_results/audit
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/refine_rpca.py --input team_results --metric ofi_per_depth --train-days 2
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/refine_rpca.py --input team_results --metric ofi_per_volume --train-days 2
+~~~
+
+- The audit checks five-minute bucket alignment, completeness, normalization identities, book-reconstruction warnings, numerical decomposition identities and descriptive residual persistence. Outputs: team_results/audit/audit.md and audit.json.
+- The RPCA sensitivity script varies train-only regularization and compares sparse fraction, low-rank complexity and held-out projection to equal-rank SVD. Outputs: team_results/rpca_tuning/.
+- Neither tool substitutes for independently validated quote snapshots or actual future-return labels. No predictive effect has been demonstrated.
+
 The earlier six-stock 2019 study below remains intact and uses a distinct paired order-book / multi-level OFI pipeline.
 
 ---
