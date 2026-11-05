@@ -9,7 +9,7 @@ The newest research experiment reconstructs **provisional Level 1 order flow** a
 - [Exact 80-ticker universe](universe_candidates.csv)
 - [Aggregate depth-normalized factor metrics](docs/research/2025-07-depth-summary.json) and [volume-normalized factor metrics](docs/research/2025-07-volume-summary.json)
 
-**Status:** computational pipeline completed and figures produced on lobster2; quotes have not been independently verified. The public repository intentionally **does not contain licensed market-data archives, derived matrices/tensors, or plots made from potentially restricted market data**. Those remain on authorized systems pending lab/license confirmation.
+**Status:** computational pipeline completed and figures produced on lobster2; quotes have not been independently verified. The public repository intentionally **does not add the new July 2025 licensed market-data archives, derived matrices/tensors, or factor plots**. Those remain on authorized systems pending lab/license confirmation.
 
 To reproduce **on an authorized host with access to `/lobster/2025`**:
 
