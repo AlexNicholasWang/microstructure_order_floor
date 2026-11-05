@@ -64,15 +64,15 @@ class WorkflowTests(unittest.TestCase):
     def test_train_only_svd_and_forward_model(self):
         rng = np.random.default_rng(44)
         data = rng.normal(size=(240, 8))
-        day = np.array(["a"] * 80 + ["b"] * 80 + ["c"] * 80)
-        z, residual, info = prepare_factor_model(data, day, ["a", "b"], 5, .8, 3)
+        day = np.array(["2025-07-29"] * 80 + ["2025-07-30"] * 80 + ["2025-07-31"] * 80)
+        z, residual, info = prepare_factor_model(data, day, ["2025-07-29", "2025-07-30"], 5, .8, 3)
         self.assertEqual(info["rank"], 3)
         self.assertEqual(z.shape, data.shape)
         self.assertTrue(np.isfinite(residual).all())
         y = residual[:, 0] * 0.001 + rng.normal(0, 0.0001, size=len(data))
         trend = trailing_three(residual, day)
-        score = evaluate_stock(y, residual[:, 0], trend[:, 0], day != "c",
-                               day == "c", alpha=10, min_train=20, min_test=10)
+        score = evaluate_stock(y, residual[:, 0], trend[:, 0], day != "2025-07-31",
+                               day == "2025-07-31", alpha=10, min_train=20, min_test=10)
         self.assertIsNotNone(score)
         self.assertGreater(score["test_obs"], 50)
         beta = fit_ridge(np.ones((10, 2)), np.ones(10), 10)
