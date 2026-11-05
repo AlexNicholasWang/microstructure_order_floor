@@ -75,7 +75,7 @@ done
 
 # Also generate factor and RPCA plots for the full panel
 for m in ofi_per_depth ofi_per_volume; do
-  OPENBLAS_NUM_THREADS=1 python scripts/lobster2/ofi_team_pipeline.py factors --input team_results_long --output team_results_long/factors_$m --metric $m --train-days 15 --half-life-days 5
+  OPENBLAS_NUM_THREADS=1 python scripts/lobster2/ofi_team_pipeline.py factors --input team_results_long --output team_results_long/factors_${m#ofi_per_} --metric $m --train-days 15 --half-life-days 5
 done
 ~~~
 
