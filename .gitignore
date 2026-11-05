@@ -16,3 +16,7 @@ shareable_figures/
 *_5min_stacked.csv
 historical_weighted_raw_ofi.csv
 reconstruction_qc.csv
+
+# Extended 2025 panels, price labels and forward-return experiments
+team_results_long/
+team_results_*/
