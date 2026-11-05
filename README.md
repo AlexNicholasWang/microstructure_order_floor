@@ -42,6 +42,51 @@ OPENBLAS_NUM_THREADS=1 python scripts/lobster2/refine_rpca.py --input team_resul
 - The RPCA sensitivity script varies train-only regularization and compares sparse fraction, low-rank complexity and held-out projection to equal-rank SVD. Outputs: team_results/rpca_tuning/.
 - Neither tool substitutes for independently validated quote snapshots or actual future-return labels. No predictive effect has been demonstrated.
 
+
+### Complete the extended empirical workflow on lobster2
+
+The initial three-day run is saved under team_results/. Do not rebuild it. All extended outputs remain private and are ignored by Git.
+
+~~~bash
+# Run from an SSH session in ~/ofi-research; copy the latest scripts from GitHub
+mkdir -p scripts/lobster2
+for f in ofi_team_pipeline.py reconstruct_ofi.py extend_cached_panel.py extract_midquotes.py predict_residual_returns.py validate_reference_quotes.py audit_research.py refine_rpca.py; do
+  curl -fsSL https://raw.githubusercontent.com/AlexNicholasWang/microstructure_order_floor/main/scripts/lobster2/$f -o scripts/lobster2/$f
+done
+
+# Analyze previous results immediately without reading the archives again
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/audit_research.py --input team_results --output team_results/audit
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/refine_rpca.py --input team_results --metric ofi_per_depth --train-days 2
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/refine_rpca.py --input team_results --metric ofi_per_volume --train-days 2
+
+# Select the latest 20 fully populated trading days through July 31
+python scripts/lobster2/extend_cached_panel.py --base team_results --output team_results_long --max-days 20 --until 20250731 --dry-run
+
+# Reuse the existing three days, cache each additional stock/day and resume after interruptions
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/extend_cached_panel.py --base team_results --output team_results_long --max-days 20 --until 20250731
+
+# Reconstruct provisional midpoint time series. This requires another (cached) pass through source archives.
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/extract_midquotes.py --input team_results_long --output team_results_long/prices
+
+# Train on days 1-15 and evaluate on the five later days (horizons 5, 15, 30 min)
+for m in ofi_per_depth ofi_per_volume; do
+  OPENBLAS_NUM_THREADS=1 python scripts/lobster2/predict_residual_returns.py --input team_results_long --prices team_results_long/prices --metric $m --train-days 15 --output team_results_long/forward_tests/$m
+done
+
+# Also generate factor and RPCA plots for the full panel
+for m in ofi_per_depth ofi_per_volume; do
+  OPENBLAS_NUM_THREADS=1 python scripts/lobster2/ofi_team_pipeline.py factors --input team_results_long --output team_results_long/factors_$m --metric $m --train-days 15 --half-life-days 5
+done
+~~~
+
+**Quote-validation prerequisite:** To verify book reconstruction independently, obtain a reference CSV exported from actual order-book snapshots with columns `minute,ticker,bid,ask,bid_size,ask_size`; `minute` is the matching 5-minute bucket-start timestamp and the reference quote is observed at its bucket end. Then, on lobster2:
+
+~~~bash
+python scripts/lobster2/validate_reference_quotes.py --reconstructed team_results_long/prices/end_of_bucket_quotes.csv --reference /path/to/independent_level1_quotes.csv
+~~~
+
+No snapshot means this independent validation cannot be marked complete. Even when validation passes, the preliminary future-midquote experiment measures statistical forecast performance, not tradeable profit or causality.
+
 The earlier six-stock 2019 study below remains intact and uses a distinct paired order-book / multi-level OFI pipeline.
 
 ---
