@@ -91,3 +91,28 @@ OPENBLAS_NUM_THREADS=1 python scripts/lobster2/refine_rpca.py --input team_resul
 The audit checks reconstruction QC warnings, stock-day/timestamp alignment, normalization formula consistency, held-out decomposition identities, and descriptive residual OFI persistence. The sensitivity study varies regularization *on training dates only* and compares the low-rank/sparsity tradeoff against same-rank SVD on a held-out day.
 
 These checks are not independent quote validation or return forecasting. Detailed audit outputs derived from licensed market data remain private pending approval.
+
+## November 5 cached-panel audit and RPCA sensitivity results
+
+The subsequent audit on lobster2 reported `PASS_WITH_PROVISIONAL_QUOTES`, with no normalization formula, timestamp alignment or additive decomposition consistency errors. **This is not independent book/quote validation.**
+
+| Held-out measure (July 31, 2025) | Depth normalized | Volume normalized |
+| --- | ---: | ---: |
+| SVD rank used | 31 | 33 |
+| Held-out standardized squared-energy captured by SVD | 55.09% | 56.05% |
+| Training Robust PCA nonzero sparse fraction | 71.60% | 70.31% |
+| Held-out thresholded sparse nonzero fraction | 2.84% | 0.63% |
+| Median lag-1 OFI residual correlation across 80 stocks | 0.0600 | 0.0532 |
+| Median 3-bucket past-sum-to-next residual correlation | 0.0566 | 0.0682 |
+
+Robust PCA tuning on the two training dates gave the following regularization tradeoff:
+
+| Lambda multiplier | Depth: sparse % / rank(L) | Volume: sparse % / rank(L) |
+| ---: | ---: | ---: |
+| 0.5 | 99.85% / 3 | 99.89% / 3 |
+| 1.0 | 71.60% / 52 | 70.31% / 54 |
+| 1.5 | 24.83% / 80 | 24.26% / 80 |
+| 2.0 | 8.23% / 80 | 7.88% / 80 |
+| 3.0 | 1.31% / 80 | 1.30% / 80 |
+
+A full-rank low-rank component trivially reconstructs the held-out 80-dimensional panel, so 100% projection capture at those regularization settings **must not** be reported as predictive success. Further model/threshold design is required. A three-day study is too short for reliable stability inference; the longer period has been selected but the 20-day build had not yet been completed at the time of this note.
