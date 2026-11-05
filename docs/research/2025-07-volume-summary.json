@@ -1,0 +1,21 @@
+{
+  "metric": "ofi_per_volume",
+  "train_days": [
+    "2025-07-29",
+    "2025-07-30"
+  ],
+  "test_days": [
+    "2025-07-31"
+  ],
+  "train_rows": 153,
+  "test_rows": 78,
+  "rank_used": 33,
+  "rank_80pct": 33,
+  "elbow_heuristic": 12,
+  "explained_training_variance": 0.8045405774712628,
+  "rpca_train_relative_error": 8.107168388555583e-06,
+  "rpca_sparse_fraction": 0.7031045751633986,
+  "rpca_iteration_count": 22,
+  "rpca_heldout_sparse_threshold": 1.4690812408518037,
+  "warning": "Not validated against actual quotes; residual persistence is not price-return prediction."
+}

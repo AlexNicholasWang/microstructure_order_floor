@@ -6,3 +6,13 @@ __pycache__/
 data/raw/
 data/extracted/
 outputs/
+
+# Licensed market-data inputs and locally generated research outputs
+*.7z
+team_results/
+ofi_output/
+shareable_figures/
+*.npy
+*_5min_stacked.csv
+historical_weighted_raw_ofi.csv
+reconstruction_qc.csv

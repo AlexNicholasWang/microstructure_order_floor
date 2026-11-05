@@ -1,5 +1,35 @@
 # Microstructure Order Flow
 
+## July 2025: observed 80-stock, three-day OFI experiment
+
+The newest research experiment reconstructs **provisional Level 1 order flow** across **80 equities** over **July 29–31, 2025**, using 78 nonoverlapping five-minute buckets per day (tensor shape `3 × 78 × 80`). It compares raw OFI, traded-volume-normalized OFI, and displayed Level 1 depth-normalized OFI, followed by training-only standardized SVD, exploratory Robust PCA, and held-out residual-persistence diagnostics.
+
+- [Experiment report, QC, and preliminary findings](docs/research/2025-07-three-day-ofi.md)
+- [Pipeline source](scripts/lobster2/ofi_team_pipeline.py) and [matching message-book reconstructor](scripts/lobster2/reconstruct_ofi.py)
+- [Exact 80-ticker universe](universe_candidates.csv)
+- [Aggregate depth-normalized factor metrics](docs/research/2025-07-depth-summary.json) and [volume-normalized factor metrics](docs/research/2025-07-volume-summary.json)
+
+**Status:** computational pipeline completed and figures produced on lobster2; quotes have not been independently verified. The public repository intentionally **does not contain licensed market-data archives, derived matrices/tensors, or plots made from potentially restricted market data**. Those remain on authorized systems pending lab/license confirmation.
+
+To reproduce **on an authorized host with access to `/lobster/2025`**:
+
+```bash
+python -m pip install -r requirements.txt
+# The 7z executable is also required.
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/ofi_team_pipeline.py build \
+  --universe universe_candidates.csv --dates 20250729 20250730 20250731 --limit 80
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/ofi_team_pipeline.py factors \
+  --train-days 2 --metric ofi_per_depth --half-life-days 5 \
+  --output team_results/factors_depth
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/ofi_team_pipeline.py factors \
+  --train-days 2 --metric ofi_per_volume --half-life-days 5 \
+  --output team_results/factors_volume
+```
+
+The earlier six-stock 2019 study below remains intact and uses a distinct paired order-book / multi-level OFI pipeline.
+
+---
+
 Baseline pipeline for the Math 199 project on decomposition of equity order flow for return forecasting.
 
 ## Current milestone
@@ -34,13 +64,13 @@ The fitted cross-impact coefficient matrix, when generated, is exported to `outp
 
 ![Numerical Level 1 OFI matrix, first and last sampled rows](docs/figures/level1_ofi_matrix_formatted.svg)
 
-This figure displays **actual computed OFI entries** from January 2, 2019 using AAPL, AIG, GE, PSA, SPY, and WMT. Each row is a 10-second interval, each column is one asset, and the entries are signed Level 1 OFI in shares. The complete observed matrix contains **2,340 rows × 6 assets**; only the first and last rows are shown above. A true `n × 80` matrix will require matching-date LOBSTER files for 80 assets. See [how to build and validate the matrix](docs/level1_ofi_matrix.md).
+This figure displays **actual computed OFI entries** from January 2, 2019 using AAPL, AIG, GE, PSA, SPY, and WMT. Each row is a 10-second interval, each column is one asset, and the entries are signed Level 1 OFI in shares. The complete observed matrix contains **2,340 rows × 6 assets**; only the first and last rows are shown above. A separate **provisional** 80-stock three-day matrix was subsequently reconstructed from July 2025 message archives; see the 2025 report above. See [how to build and validate the matrix](docs/level1_ofi_matrix.md).
 
 ## Level 1 order-flow imbalance matrix (n × 80 target)
 
 [Matrix construction, equation, inputs, limitations, and example](docs/level1_ofi_matrix.md).
 
-Run `python scripts/build_level1_ofi_matrix.py <LOBSTER .7z archives>` to create a timestamp-by-asset Level 1 OFI CSV and a per-ticker coverage report. This is distinct from the cross-impact coefficient matrix. A true observed `n × 80` matrix needs matching-date LOBSTER data for 80 assets; the supplied 2019 sample currently covers six.
+Run `python scripts/build_level1_ofi_matrix.py <LOBSTER .7z archives>` to create a timestamp-by-asset Level 1 OFI CSV and a per-ticker coverage report. This is distinct from the cross-impact coefficient matrix. The 2019 sample here contains six names; the separate 2025 message-only experiment above covers 80.
 
 ## Setup
 
