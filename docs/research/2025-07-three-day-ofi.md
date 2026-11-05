@@ -77,3 +77,17 @@ The repo includes **only the aggregate JSON summaries** and source needed to reg
 - `scripts/lobster2/ofi_team_pipeline.py`: three-day/five-minute construction, normalizations, weighted historical mean, SVD and exploratory Robust PCA.
 
 Older `scripts/run_pipeline.py` and `scripts/build_level1_ofi_matrix.py` are a **separate paired-message/orderbook baseline**, retained for reproducibility.
+
+## Follow-up tools added November 5, 2026
+
+The repo now includes scripts/lobster2/audit_research.py and scripts/lobster2/refine_rpca.py. Both run from cached team_results panels, without reopening the 240 stock-day archives.
+
+~~~bash
+python scripts/lobster2/audit_research.py --input team_results --output team_results/audit
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/refine_rpca.py --input team_results --metric ofi_per_depth --train-days 2
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/refine_rpca.py --input team_results --metric ofi_per_volume --train-days 2
+~~~
+
+The audit checks reconstruction QC warnings, stock-day/timestamp alignment, normalization formula consistency, held-out decomposition identities, and descriptive residual OFI persistence. The sensitivity study varies regularization *on training dates only* and compares the low-rank/sparsity tradeoff against same-rank SVD on a held-out day.
+
+These checks are not independent quote validation or return forecasting. Detailed audit outputs derived from licensed market data remain private pending approval.
