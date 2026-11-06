@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit existing 3-day OFI outputs without decompressing any market-data archives.
+"""Audit existing OFI outputs without decompressing any market-data archives.
 
 Run on the authorized lab host:
   python scripts/lobster2/audit_research.py --input team_results
@@ -164,7 +164,7 @@ def audit(folder: Path) -> dict:
         "errors": errors,
         "limitations": [
             "This checks consistency, not correctness against independent quote snapshots.",
-            "Three days and a single held-out day cannot establish stable factors.",
+            "Short samples and only a few held-out trading days cannot establish stable factors.",
             "Residual correlations describe OFI persistence, not future-return prediction.",
             "No statistical significance is asserted; cross-stock dependencies and serial correlation remain.",
         ],
@@ -180,7 +180,7 @@ def main() -> None:
     args.output.mkdir(parents=True, exist_ok=True)
     (args.output / "audit.json").write_text(json.dumps(report, indent=2) + "\n")
     lines = [
-        "# OFI three-day data and residual audit",
+        "# OFI data and residual audit",
         "",
         f"**Automated consistency result:** {report['status']}",
         f"**Data:** {report['ticker_count']} tickers, {len(report['days'])} days",
