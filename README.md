@@ -1,5 +1,15 @@
 # Microstructure Order Flow
 
+## Latest research: 19-session, 80-stock OFI return forecasting (November 2026)
+
+The **19 regular-session** July 2025 study is now complete at the preliminary computational stage. We reconstructed 5-minute OFI and midpoint prices for 80 equities; tested SVD residual OFI versus raw normalized OFI at 5, 15, and 30 minutes using 14 train days and five later held-out days; and audited RPCA sparsity sensitivity. SVD residuals improve pooled held-out R² in **5/6** comparisons, but **all pooled held-out R² values are negative**, so no reliable forecast or tradable signal is established.
+
+- [19-day research report and private-figure index](docs/research/2025-07-nineteen-day-ofi-results.md)
+- [Aggregate out-of-sample return comparison (CSV)](docs/research/2025-07-nineteen-day-oos-summary.csv)
+- [Aggregate machine-readable study summary (JSON)](docs/research/2025-07-nineteen-day-results.json)
+
+**Data access:** Detailed 80-ticker panels, midquotes, per-stock diagnostic CSVs, and PNG figures remain under the Git-ignored team_results_regular/ directory on the authorized lobster2 host. Do not publish them without approval for redistribution of licensed-data derivatives. Independent book quote validation, longer rolling tests and clustered significance analysis remain outstanding.
+
 ## July 2025: observed 80-stock, three-day OFI experiment
 
 The newest research experiment reconstructs **provisional Level 1 order flow** across **80 equities** over **July 29–31, 2025**, using 78 nonoverlapping five-minute buckets per day (tensor shape `3 × 78 × 80`). It compares raw OFI, traded-volume-normalized OFI, and displayed Level 1 depth-normalized OFI, followed by training-only standardized SVD, exploratory Robust PCA, and held-out residual-persistence diagnostics.
