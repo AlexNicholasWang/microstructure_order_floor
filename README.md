@@ -180,3 +180,17 @@ After validating this baseline on the uploaded sample, add diagnostic heatmaps a
 - common-factor residual OFI;
 - SPY/market-residualized OFI;
 - forward returns in rolling out-of-sample windows.
+
+### Market-calendar correction: July 3 early close
+
+The cached July 2025 20-day build includes Thursday July 3, when NYSE/Nasdaq closed at **13:00 ET**, rather than the assumed 16:00. The original 78-bucket generator does **not** implement early-close logic. Its July 3 full-day denominators and OFI after the early close must not be treated as full-session observations. Exclude the whole date in the regular-session study without reprocessing source archives:
+
+~~~bash
+python scripts/lobster2/prepare_regular_sessions.py --input team_results_long --output team_results_regular --exclude 20250703
+OPENBLAS_NUM_THREADS=1 python scripts/lobster2/audit_research.py --input team_results_regular --output team_results_regular/audit
+for m in ofi_per_depth ofi_per_volume; do
+  OPENBLAS_NUM_THREADS=1 python scripts/lobster2/ofi_team_pipeline.py factors --input team_results_regular --output team_results_regular/factors_${m#ofi_per_} --metric $m --train-days 14 --half-life-days 5
+done
+~~~
+
+Official exchange reference: https://ir.theice.com/press/news-details/2024/NYSE-Group-Announces-2025-2026-and-2027-Holiday-and-Early-Closings-Calendar/default.aspx. The corrected 19-day panel recalculates historical raw OFI using only retained sessions. Original 20-day private panels remain untouched. Return tests must use the 19-day panel and 14 training / five held-out dates.
