@@ -1,0 +1,210 @@
+{
+  "study": "Provisional 19-session Level 1 OFI decomposition and forward-midquote returns",
+  "report_date": "2026-11-06",
+  "research_context": "UCLA Mathematics / MSF group",
+  "status": "preliminary_results_not_independently_quote_validated",
+  "date_range": {
+    "first": "2025-07-07",
+    "last": "2025-07-31",
+    "trading_days": 19,
+    "excluded_early_close": "2025-07-03",
+    "train_days": 14,
+    "test_days": 5,
+    "test_dates": [
+      "2025-07-25",
+      "2025-07-28",
+      "2025-07-29",
+      "2025-07-30",
+      "2025-07-31"
+    ]
+  },
+  "universe": {
+    "tickers": 80,
+    "buckets_per_day": 78,
+    "total_buckets": 1482,
+    "potential_stock_bucket_observations": 118560
+  },
+  "data_quality": {
+    "status": "PASS_WITH_PROVISIONAL_QUOTES",
+    "independent_book_validation": false,
+    "missing_raw_ofi": 0,
+    "missing_depth_ofi": 0,
+    "missing_volume_ofi": 4,
+    "missing_midquote": 0,
+    "warnings": {
+      "bad_lines": 0,
+      "invalid_quotes": 0,
+      "nonmonotonic": 0
+    }
+  },
+  "model": {
+    "features": [
+      "current_five_minute_ofi",
+      "trailing_three_bucket_mean_ofi"
+    ],
+    "baseline": "per_stock_training_mean_return",
+    "target": "forward_log_end_of_bucket_midquote_return",
+    "train_only_standardization": true,
+    "svd_common_basis_train_only": true,
+    "horizons_minutes": [
+      5,
+      15,
+      30
+    ],
+    "ridge_alpha": 10
+  },
+  "factor_diagnostics": {
+    "depth": {
+      "train_complete_buckets": 1092,
+      "test_complete_buckets": 390,
+      "svd_rank_80pct": 42,
+      "svd_train_variance_fraction": 0.8048898612730431,
+      "svd_heldout_projection_energy_fraction": 0.6579749692342238,
+      "rpca_train_sparse_nonzero_fraction": 0.8640224358974359,
+      "rpca_heldout_sparse_nonzero_fraction": 0.007788461538461538,
+      "median_lag1_residual_ofi_corr": 0.12299979245222084
+    },
+    "volume": {
+      "train_complete_buckets": 1091,
+      "test_complete_buckets": 387,
+      "svd_rank_80pct": 43,
+      "svd_train_variance_fraction": 0.8006069175128613,
+      "svd_heldout_projection_energy_fraction": 0.7227704028138162,
+      "rpca_train_sparse_nonzero_fraction": 0.8588680109990834,
+      "rpca_heldout_sparse_nonzero_fraction": 0.008656330749354004,
+      "median_lag1_residual_ofi_corr": 0.06581961907171036
+    }
+  },
+  "rpca_sensitivity": [
+    {
+      "lambda_multiplier": 0.5,
+      "depth": {
+        "sparse_fraction": 0.999084,
+        "rank": 3
+      },
+      "volume": {
+        "sparse_fraction": 0.999347,
+        "rank": 3
+      }
+    },
+    {
+      "lambda_multiplier": 1,
+      "depth": {
+        "sparse_fraction": 0.864022,
+        "rank": 55
+      },
+      "volume": {
+        "sparse_fraction": 0.858868,
+        "rank": 59
+      }
+    },
+    {
+      "lambda_multiplier": 1.5,
+      "depth": {
+        "sparse_fraction": 0.270524,
+        "rank": 80
+      },
+      "volume": {
+        "sparse_fraction": 0.263497,
+        "rank": 80
+      }
+    },
+    {
+      "lambda_multiplier": 2,
+      "depth": {
+        "sparse_fraction": 0.097882,
+        "rank": 80
+      },
+      "volume": {
+        "sparse_fraction": 0.089253,
+        "rank": 80
+      }
+    },
+    {
+      "lambda_multiplier": 3,
+      "depth": {
+        "sparse_fraction": 0.023146,
+        "rank": 80
+      },
+      "volume": {
+        "sparse_fraction": 0.018045,
+        "rank": 80
+      }
+    }
+  ],
+  "oos_comparisons": [
+    {
+      "normalization": "depth",
+      "minutes": 5,
+      "raw_pooled_oos_r2": -0.002511252830582844,
+      "residual_pooled_oos_r2": -0.002161009254197488,
+      "stocks_improved": 43,
+      "out_of": 80,
+      "median_per_stock_r2_gain": 0.001378,
+      "test_predictions": 30000
+    },
+    {
+      "normalization": "depth",
+      "minutes": 15,
+      "raw_pooled_oos_r2": -0.008491043131923393,
+      "residual_pooled_oos_r2": -0.004921162676518209,
+      "stocks_improved": 48,
+      "out_of": 80,
+      "median_per_stock_r2_gain": 0.003676,
+      "test_predictions": 29200
+    },
+    {
+      "normalization": "depth",
+      "minutes": 30,
+      "raw_pooled_oos_r2": -0.007329392648679711,
+      "residual_pooled_oos_r2": -0.006070583949328023,
+      "stocks_improved": 42,
+      "out_of": 80,
+      "median_per_stock_r2_gain": 0.000475,
+      "test_predictions": 28000
+    },
+    {
+      "normalization": "volume",
+      "minutes": 5,
+      "raw_pooled_oos_r2": -0.002336246169443168,
+      "residual_pooled_oos_r2": -0.0023585414608682242,
+      "stocks_improved": 41,
+      "out_of": 80,
+      "median_per_stock_r2_gain": 0.000141,
+      "test_predictions": 29280
+    },
+    {
+      "normalization": "volume",
+      "minutes": 15,
+      "raw_pooled_oos_r2": -0.004391862787321843,
+      "residual_pooled_oos_r2": -0.0019510149729138337,
+      "stocks_improved": 49,
+      "out_of": 80,
+      "median_per_stock_r2_gain": 0.002478,
+      "test_predictions": 28480
+    },
+    {
+      "normalization": "volume",
+      "minutes": 30,
+      "raw_pooled_oos_r2": -0.005183856921470831,
+      "residual_pooled_oos_r2": -0.003361372526827555,
+      "stocks_improved": 40,
+      "out_of": 80,
+      "median_per_stock_r2_gain": 0.000028,
+      "test_predictions": 27360
+    }
+  ],
+  "summary": {
+    "residual_better_pooled_comparisons": 5,
+    "total_pooled_comparisons": 6,
+    "positive_pooled_oos_r2_comparisons": 0,
+    "rpca_used_for_prediction": false
+  },
+  "caveats": [
+    "Message-only quote reconstruction is provisional; independent order-book snapshots were not compared.",
+    "Only five held-out trading sessions; cross-equity dependence and overlapping targets preclude naive significance tests.",
+    "All pooled OOS R² values are negative.",
+    "RPCA decomposition varies strongly with regularization; rank-80 projection fractions are trivial.",
+    "No transaction costs, executable trading analysis, or causal claims."
+  ]
+}
